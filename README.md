@@ -5,7 +5,7 @@
 - admin can add/edit/delete the post and category
 - admin can add the user and another admin
 - user can add/edit/delete the post
-- see them post, all category and number of post from that category and maintain all the user
+- all admin can see them post, all category and number of post from that category and maintain all the user
 
 **Pre login features**
 - see all the post

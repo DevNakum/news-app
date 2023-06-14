@@ -1,0 +1,83 @@
+{% extends 'header.html' %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>News</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+    <!-- Custom stlylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- post-container -->
+                    <div class="post-container">
+
+                        {% for i in page_obj %}
+                        <div class="post-content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a class="post-img" href="{% url 'single1' i.id %}"><img src="{{i.img.url}}" alt=""/></a>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="inner-content clearfix">
+                                        <h3><a href='{% url 'single1' i.id %}'>{{i.title}}</a></h3>
+                                        <div class="post-information">
+                                            <span>
+                                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                                <a href='{% url 'headercategory1' i.category_id %}'>{{i.category}}</a>
+                                            </span>
+                                            <span>
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                <a href='{% url 'author1' i.author_id %}'>{{i.author}}</a>
+                                            </span>
+                                            <span>
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                {{i.date}}
+                                            </span>
+                                        </div>
+                                        <p class="description">
+                                            {{i.description|slice:":10"}}...
+                                        </p>
+                                        <a class='read-more pull-right' href='{% url 'single1' i.id %}'>read more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                        
+                        <ul class='pagination'>
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                            {% endif %}
+
+                            <li class="active"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+
+                            {% if page_obj.has_next %}
+                                <li><a href="?page={{ page_obj.next_page_number }}">next</a></li>
+                            {% endif %}
+                        </ul>
+                    </div><!-- /post-container -->
+                </div>
+                
+
+                {% include 'sidebar.html' %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

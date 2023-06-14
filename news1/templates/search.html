@@ -1,0 +1,62 @@
+{% extends 'header.html' %}
+{% block content %}
+{% load static %}
+    <div id="main-content">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- post-container -->
+                <div class="post-container">
+                  <h2 class="page-heading">Search : {{search}}</h2>
+                    
+                    {% for i in post %}
+                    <div class="post-content">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a class="post-img" href="{% url 'single1' i.id %}"><img src="{{i.img.url}}" alt=""/></a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="inner-content clearfix">
+                                    <h3><a href='{% url 'single1' i.id %}'>{{i.title}}</a></h3>
+                                    <div class="post-information">
+                                        <span>
+                                            <i class="fa fa-tags" aria-hidden="true"></i>
+                                            <a href='{% url 'headercategory1' i.category_id %}'>{{i.category}}</a>
+                                        </span>
+                                        <span>
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <a href='{% url 'author1' i.author_id %}'>{{i.author}}</a>
+                                        </span>
+                                        <span>
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            {{i.date}}
+                                        </span>
+                                    </div>
+                                    <p class="description">
+                                        {{i.description}}
+                                    </p>
+                                    <a class='read-more pull-right' href='{% url 'single1' i.id %}'>read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <ul class='pagination'>
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                        {% endif %}
+
+                        <li class="active"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}">next</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!-- /post-container -->
+            </div>
+            {% include 'sidebar.html' %}
+        </div>
+      </div>
+    </div>
+{% endblock %}

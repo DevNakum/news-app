@@ -1,0 +1,37 @@
+{% extends 'header-login.html' %}
+{% block content %}
+{% load static %}
+<div id="admin-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h1 class="admin-heading">All Categories</h1>
+            </div>
+            <div class="col-md-2">
+                <a class="add-new" href="{% url 'addCategory1' %}">add category</a>
+            </div>
+            <div class="col-md-12">
+                <table class="content-table">
+                    <thead>
+                        <th>Category Name</th>
+                        <th>No. of Posts</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                        <tr>
+                            <td>{{i.categoryname}}</td>
+                            <td>{{i.noOfPost}}</td>
+                            <td class='edit'><a href='{% url 'editCategory1' i.id %}'><i class='fa fa-edit'></i></a></td>
+                            <td class='delete'><a href='{% url 'deleteCategory1' i.id %}'><i class='fa fa-trash-o'></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

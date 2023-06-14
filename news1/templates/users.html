@@ -1,0 +1,56 @@
+{% extends 'header-login.html' %}
+{% block content %}
+{% load static %}
+  <div id="admin-content">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-10">
+                  <h1 class="admin-heading">All Users</h1>
+              </div>
+              <div class="col-md-2">
+                  <a class="add-new" href="{% url 'addUser1' %}">add user</a>
+              </div>
+              <div class="col-md-12">
+                  <table class="content-table">
+                      <thead>
+                          <th>Full Name</th>
+                          <th>User Name</th>
+                          <th>Role</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                      </thead>
+                      <tbody>
+                        {% for i in page_obj %}
+                        <tr>
+                            <td>{{i.fname}} {{i.lname}}</td>
+                            <td>{{i.username}}</td>
+                            <td>
+                                {% if i.role %}
+                                    Admin
+                                {% else %}
+                                    Normal User
+                                {% endif %}
+                                
+                            </td>
+                            <td class='edit'><a href='{% url 'edituser1' i.id %}'><i class='fa fa-edit'></i></a></td>
+                            <td class='delete'><a href='{% url 'deleteuser1' i.id %}'><i class='fa fa-trash-o'></i></a></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+                  <ul class='pagination admin-pagination'>
+                    {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                    {% endif %}
+
+                    <li class="active"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+
+                    {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}">next</a></li>
+                    {% endif %}
+                </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}

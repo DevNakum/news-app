@@ -1,0 +1,44 @@
+{% comment %} {% block sidebar %} {% endcomment %}
+{% load static %}
+<div id="sidebar" class="col-md-4">
+    <!-- search box -->
+    <div class="search-box-container">
+        <h4>Search</h4>
+        <form class="search-post" action="{% url 'search1' %}" method ="GET">
+            {% comment %} {% csrf_token %} {% endcomment %}
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search .....">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-danger">Search</button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <!-- /search box -->
+    <!-- recent posts box -->
+    <div class="recent-post-container">
+        <h4>Recent Posts</h4>
+        {% for i in recent %}
+        <div class="recent-post">
+            <a class="post-img" href="{% url 'single1' i.id %}">
+                <img src="{{i.img.url}}" alt=""/>
+            </a>
+            <div class="post-content">
+                <h5><a href='{% url 'single1' i.id %}'>{{i.title}}</a></h5>
+                <span>
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <a href='{% url 'headercategory1' i.category_id %}'>{{i.category}}</a>
+                </span>
+                <span>
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    {{i.date}}
+                </span>
+                <a class="read-more" href="{% url 'single1' i.id %}">read more</a>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+    <!-- /recent posts box -->
+</div>
+{% comment %} {% endblock %} {% endcomment %}
